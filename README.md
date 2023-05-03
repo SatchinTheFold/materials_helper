@@ -1,0 +1,2 @@
+A python helper file that takes a list of Products and will match materials in title.
+It will return 3 CSV files: One where there is a main material in title, one where there is a secondary material and one where there are no matches
