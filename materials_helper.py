@@ -14,12 +14,31 @@ for row in csvreader:
 primary_materials = ['merino', 'denim', 'jersey', 'silk', 'leather', 'cotton', 'suede', 'velvet', 'linen', 'satin', 'crepe', 'chiffon', 'wool', 'twill', 'tweed', 'cashmere', 'jacquard', 'jersey', 'georgette']
 secondary_materials = {
     'belt': 'leather',
-    'stretch': 'crepe', # maybe change
-    'knitted': 'viscose',
-    'viscose': 'viscose',
+    'stretch': 'crepe',
+    'knitted': 'viscose blend',
+    'viscose': 'viscose blend',
     'tights': 'nylon',
     'socks': 'nylon',
-    'alpaca': 'alpaca wool'
+    'alpaca': 'alpaca wool',
+}
+specific_products = {
+		'como 80 metallic nappa sandal': 'leather',
+		'lerici 80 mahogany high heels': 'leather',
+		'san casciano 45 silver glitter': 'metallic fabric',
+		'sleeveless camelot dress blush pink': 'fabric blend',
+		'delphi dress light sand fern print': 'georgette',
+		'rosemount dress multicolour confetti print': 'silk',
+		'vieste dress navy and toffee shell print': 'georgette',
+		'keswick sweater oyster and sapphire blue': 'viscose blend',
+		'lisson sweater ivory and navy': 'viscose blend',
+		'lisson sweater khaki and ivory': 'viscose blend',
+		'elstead reversible quilted jacket olive green and navy': 'padded',
+		'ec1 pencil skirt black': 'crepe',
+		'rivelli slim-leg elasticated trousers burnt orange': 'stretch crepe',
+		'miramere slim-leg elasticated trousers eucalyptus': 'stretch crepe',
+        'tirano blouse multicolour': 'viscose',
+        'vinca rain mac taupe': 'water repellent blend',
+        'altea top white lace': 'lace'
 }
 
 # open file for products that have a matching material
@@ -51,6 +70,21 @@ for product_name in temp:
             break
 
 matched_secondary_materials.close()
+
+# open file for products that have been hardcoded to have a specific material
+specific_product_materials = open(r"C:\Users\Satchin Mistry\The Fold Dropbox\Satchin Mistry\PC\Documents\specific_product_materials.csv", "w", newline="", encoding="utf-8")
+writer = csv.writer(specific_product_materials)
+writer.writerow(['Product Name', 'Corresponding Material'])
+
+temp = rows.copy()
+for product_name in temp:
+    for material in specific_products:
+        if material in product_name.lower():
+            writer.writerow([product_name, specific_products[material]])
+            rows.remove(product_name)
+            break
+
+specific_product_materials.close()
 
 # open file for any products that don't match at all
 unmatched_products = open(r"C:\Users\Satchin Mistry\The Fold Dropbox\Satchin Mistry\PC\Documents\unmatched_products.csv", "w", newline="", encoding="utf-8")
